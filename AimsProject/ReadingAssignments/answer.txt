@@ -1,5 +1,12 @@
-- When should accessor methods be used?
-Ans: Accessor methods (getters and setters) should only be used when necessary, and not as a default for all instance variables. Accessor methods should only be created for instance variables that need to be read or modified by clients of the class.
+1. Is JAVA a Pass by Value or a Pass by Reference programming language? 
+- Java is a Pass by Value. For example, if we pass an object into a method in Java ( swap(DVD dvd1, DVD dvd2) ) then in the method swap only receive the address value point to the dvd1 Object and dvd2 object in the memory so if we try to swap by Obj tmp = dvd1; dvd1 = dvd2; dvd2 = tmp then it won't work. Because it is only dvd1 and dvd2 in the method change value for each other which does not affect original 2 objects.
 
-- If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Does JAVA allow you to do this? 
-Ans: Yes, Java allows to create multiple constructors with different parameters in the same class, a feature known as constructor overloading
+2. After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+- o1 and o2 are just local variables of method swap so swap value of o1 and o2 does not affect the value of original objects which are jungleDVD and cinderellaDVD. So the value of jungleDVD and cinderellaDVD still remain
+
+3. After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+- In changeTitle, we have passed down the address of jungleDVD object so when we modify the title of dvd ( which is the jungleDVD object)
+it also changes the title of jungleDVD because both point to the same Object.
+
+4. Write a toString() method for the DigitalVideoDisc class. What should be the return type of this method?
+- The method return a String.
