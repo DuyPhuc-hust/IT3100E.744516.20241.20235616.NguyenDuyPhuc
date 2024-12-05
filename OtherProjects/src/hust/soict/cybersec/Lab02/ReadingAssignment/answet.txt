@@ -1,0 +1,5 @@
+- When should accessor methods be used?
+Ans: Accessor methods (getters and setters) should only be used when necessary, and not as a default for all instance variables. Accessor methods should only be created for instance variables that need to be read or modified by clients of the class.
+
+- If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Does JAVA allow you to do this? 
+Ans: Yes, Java allows to create multiple constructors with different parameters in the same class, a feature known as constructor overloading
