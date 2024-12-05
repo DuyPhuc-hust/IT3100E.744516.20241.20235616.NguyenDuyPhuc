@@ -38,8 +38,8 @@ Question: Alternatively, to compare items in the cart, instead of using Comparat
 Suppose we are taking this Comparable interface approach.
 - What class should implement the Comparable interface?
 •	The Media class should implement the Comparable interface since we want to define a default ordering for media objects.
-- In those classes, how should you implement the compareTo()method be to reflect the ordering that we want?
- 
+- In those classes, how should you implement the compareTo()method be to reflect the ordering that we want? 
+• To reflect the ordering of title then cost, the compareTo() method should first compare titles lexicographically. If the titles are the same, it should then compare the costs in ascending order.
 - Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
 •	No, it’s very hard because the Comparable interface allows only one natural ordering for a class. If we need multiple ordering rules (like sorting by title or cost), I think we must replace with Comparator instead.
 - Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
