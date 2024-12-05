@@ -1,0 +1,47 @@
+LAB 04
+9. Constructors of whole classes and parent classes
+- Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?
+•	Aggregates:
+o	Store aggregates Media.
+o	Cart aggregates Media.
+o	CompactDisc aggregates Track.
+•	Store Class
+o	Attributes: Likely contains a collection of Media objects.
+o	Constructor: Initializes the list of Media.
+o	Aggregation: The Store class aggregates Media objects because Media can exist independently of the Store.
+•	Cart Class
+o	Attributes: Likely contains a collection of Media objects.
+o	Constructor: Initializes the list of Media.
+o	Aggregation: The Cart class aggregates Media objects for the same reason as Store.
+•	Disc Class
+o	Attributes: May contain additional details like length and director.
+o	Constructor: Sets properties for Disc, and indirectly via inheritance, initializes Media attributes.
+o	Aggregation: Aggregates no separate objects but inherits from Media.
+•	CompactDisc Class
+o	Attributes: Contains a List<Track> and an artist.
+o	Constructor: Likely initializes the List<Track>.
+o	Aggregation: The CompactDisc aggregates Track because Track instances can exist independently of a CompactDisc.
+•	Track Class
+o	Attributes: Title and length.
+o	Constructor: Initializes these properties.
+o	Aggregation: Not an aggregate class since it contains no other objects.
+•	DigitalVideoDisc Class
+o	Attributes: Inherits Disc attributes and methods.
+o	Constructor: Sets properties specific to DigitalVideoDisc and initializes inherited ones.
+o	Aggregation: None; it directly inherits from Disc.
+
+10. If the passing object is not an instance of Media, what happens?
+•	If the object passed to equals() is not an instance of Media or Track, I will returns false. This ensures type safety and avoids ClassCastException.
+
+12.  Sort media in the cart
+Question: Alternatively, to compare items in the cart, instead of using Comparator, we can use the Comparable interface and override the compareTo()method. You can refer to the Java docs to see the information of this interface. 
+Suppose we are taking this Comparable interface approach.
+- What class should implement the Comparable interface?
+•	The Media class should implement the Comparable interface since we want to define a default ordering for media objects.
+- In those classes, how should you implement the compareTo()method be to reflect the ordering that we want?
+ 
+- Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+•	No, it’s very hard because the Comparable interface allows only one natural ordering for a class. If we need multiple ordering rules (like sorting by title or cost), I think we must replace with Comparator instead.
+- Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+•	As DVDs has different ordering rule from other media types, I think we can override compareTo() method in DigitalVideoDisc class. After that, DVDs will be compare by the overridden compareTo() method.
+ 
