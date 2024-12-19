@@ -1,6 +1,7 @@
 package hust.soict.cybersec.aims;
 
 import hust.soict.cybersec.aims.cart.Cart;
+import hust.soict.cybersec.aims.exception.PlayerException;
 import hust.soict.cybersec.aims.media.Book;
 import hust.soict.cybersec.aims.media.CompactDisc;
 import hust.soict.cybersec.aims.media.DigitalVideoDisc;
@@ -10,11 +11,13 @@ import hust.soict.cybersec.aims.media.Track;
 import hust.soict.cybersec.aims.store.Store;
 import java.util.Scanner;
 
+import javax.naming.LimitExceededException;
+
 public class Aims {
 	private static Store store = new Store();
 	private static Cart cart = new Cart();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws LimitExceededException {
 		Scanner scanner = new Scanner(System.in);
 		int choice;
 		do {
@@ -54,7 +57,7 @@ public class Aims {
 		System.out.println("Please choose a number: 0-1-2-3");
 	}
 
-	public static void viewStore(Scanner scanner) {
+	public static void viewStore(Scanner scanner) throws LimitExceededException {
 		System.out.println("Store Items:");
 		store.displayItems();
 
@@ -98,7 +101,7 @@ public class Aims {
 		System.out.println("Please choose a number: 0-1-2-3-4");
 	}
 
-	public static void seeMediaDetails(Scanner scanner) {
+	public static void seeMediaDetails(Scanner scanner) throws LimitExceededException {
 		System.out.print("Enter the title of the media: ");
 		String title = scanner.nextLine();
 		Media media = store.searchByTitle(title);
@@ -111,7 +114,7 @@ public class Aims {
 		}
 	}
 
-	public static void mediaDetailsMenu(Scanner scanner, Media media) {
+	public static void mediaDetailsMenu(Scanner scanner, Media media) throws LimitExceededException {
 		int choice;
 		do {
 			System.out.println("");
@@ -133,7 +136,26 @@ public class Aims {
 					break;
 				case 2:
 					if (media instanceof Playable) {
-						((Playable) media).play();
+                        if(media instanceof DigitalVideoDisc){
+                            try {
+								((DigitalVideoDisc) media).play();
+							} catch (PlayerException e) {
+								// TODO Auto-generated catch block
+								e.getMessage();
+								e.toString();
+								e.printStackTrace();
+							}
+                        }
+                        else if(media instanceof CompactDisc){
+                            try {
+								((CompactDisc)media).play();
+							} catch (PlayerException e) {
+								// TODO Auto-generated catch block
+								e.getMessage();
+								e.toString();
+								e.printStackTrace();
+							}
+                        }
 					} else {
 						System.out.println("This media cannot be played.");
 					}
@@ -146,7 +168,7 @@ public class Aims {
 		} while (choice != 0);
 	}
 
-	public static void addMediaToCart(Scanner scanner) {
+	public static void addMediaToCart(Scanner scanner) throws LimitExceededException {
 		System.out.print("Enter the title of the media to add to cart: ");
 		String title = scanner.nextLine();
 		Media media = store.searchByTitle(title);
@@ -166,7 +188,26 @@ public class Aims {
 
 		if (media != null) {
 			if (media instanceof Playable) {
-				((Playable) media).play();
+                if(media instanceof DigitalVideoDisc){
+                    try {
+						((DigitalVideoDisc) media).play();
+					} catch (PlayerException e) {
+						// TODO Auto-generated catch block
+						e.getMessage();
+						e.toString();
+						e.printStackTrace();
+					}
+                }
+                else if(media instanceof CompactDisc){
+                    try {
+						((CompactDisc)media).play();
+					} catch (PlayerException e) {
+						// TODO Auto-generated catch block
+						e.getMessage();
+						e.toString();
+						e.printStackTrace();
+					}
+                }
 			} else {
 				System.out.println("This media cannot be played.");
 			}
