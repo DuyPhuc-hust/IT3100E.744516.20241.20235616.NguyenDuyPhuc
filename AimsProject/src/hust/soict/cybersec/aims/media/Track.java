@@ -1,5 +1,7 @@
 package hust.soict.cybersec.aims.media;
 
+import hust.soict.cybersec.aims.exception.PlayerException;
+
 public class Track implements Playable {
 	private String title;
 	private int length;
@@ -39,11 +41,14 @@ public class Track implements Playable {
         Track other = (Track) obj;
         return (this.title != null && this.title.equals(other.title)) && this.length == other.length;
     }
-	
+
 	@Override
-	public void play() {
-		System.out.println("Playing track: " + this.getTitle());
-		System.out.println("Track length: " + this.getLength());
+	public void play() throws PlayerException {
+		if (this.getLength() > 0) {
+			System.out.println("Playing track: " + this.getTitle());
+			System.out.println("Track length: " + this.getLength());
+		}
+		else {throw new PlayerException("Error: Track length is non-positive!");}
 	}
 
 }

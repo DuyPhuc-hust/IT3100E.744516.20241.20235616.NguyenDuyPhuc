@@ -3,32 +3,50 @@ package hust.soict.cybersec.aims.cart;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.naming.LimitExceededException;
+
 import hust.soict.cybersec.aims.media.Media;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
 	public static final int MAX_ORDERED = 20;
-	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 
-	public void addMedia(Media media) {
-		if (!itemsOrdered.contains(media)) {
-			itemsOrdered.add(media);
-		} else {
-			System.out.println("This is already in your order!");
-		}
+	public ObservableList<Media> getItemsOrdered() {
+		return itemsOrdered;
 	}
 
+	public void addMedia(Media media) throws LimitExceededException {
+		if ((itemsOrdered.size()) >= MAX_ORDERED) {
+			throw new LimitExceededException("Full");
+		}
+		else if (itemsOrdered.contains(media)) {
+			System.out.println("This is already in your order!");
+		}
+		else {
+			itemsOrdered.add(media);
+			System.out.println("Media added!");
+			}
+	}
+	
 	public void removeMedia(Media media) {
 		if (itemsOrdered.contains(media)) {
 			itemsOrdered.remove(media);
+			System.out.println("Removed");
 		} else {
 			System.out.println("This is not in the order!");
 		}
 	}
 
 	public void printOrders() {
+		System.out.println("***********************CART***********************");
+		System.out.println("Ordered Items:");
 		for (Media item : itemsOrdered) {
 			System.out.println(item.toString());
 		}
+		System.out.println("Total cost: " + totalCost());
 	}
 
 	public void searchById(int id) {
@@ -113,7 +131,8 @@ public class Cart {
 		return totalCost;
 	}
 
+	
 	public void clear() {
-		this.itemsOrdered = new ArrayList<Media>();
+		this.itemsOrdered = FXCollections.observableArrayList();
 	}
 }
